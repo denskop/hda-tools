@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # объявление переменных
-THIS_SCRIPT_PATH=/Users/MrDee/Downloads/HD_Codec-convert
+THIS_SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Расположение файла скрипта - $THIS_SCRIPT_PATH";
 # Проверка на наличие 2-convert_hex_to_dec.rb
 if ! [ -f $THIS_SCRIPT_PATH/2-convert_hex_to_dec.rb ] ; then
@@ -24,13 +24,13 @@ fi
 			echo "Путь к файлу кодека - ${n}";
 			echo "Имя файла кодека - $CODEC_FILE_NAME";
 			
-			mkdir /Users/MrDee/Desktop/"$CODEC_FILE_NAME"_converts/;
+			mkdir "$FOLDER_PATH/$CODEC_FILE_NAME"_converts/;
 			
-			touch /Users/MrDee/Desktop/"$CODEC_FILE_NAME"_converts/pin-complex.txt;
+			touch "$FOLDER_PATH/$CODEC_FILE_NAME"_converts/pin-complex.txt;
 			
-			cd /Users/MrDee/Desktop/"$CODEC_FILE_NAME"_converts/;
+			cd "$FOLDER_PATH/$CODEC_FILE_NAME"_converts/;
 									
-			cp ${n} /Users/MrDee/Desktop/"$CODEC_FILE_NAME"_converts/;
+			cp ${n} "$FOLDER_PATH/$CODEC_FILE_NAME"_converts/;
 			
 			$THIS_SCRIPT_PATH/1-codecgraph/codecgraph ${n};
 			$THIS_SCRIPT_PATH/2-convert_hex_to_dec.rb ${n} > "$CODEC_FILE_NAME"_dec.txt
@@ -42,13 +42,13 @@ fi
 			VNDR_DEC=$(sed -n '/Vendor Id:/{p;}' ${CODEC_FILE_NAME}_dec.txt);
 			PIN_COMPLEX=$(sed -n '/Pin Complex/{p;}' ${n});
 			
-			echo "$ADDRESS" > /Users/MrDee/Desktop/"$CODEC_FILE_NAME"_converts/pin-complex.txt;
-			echo "$CODEC" >> /Users/MrDee/Desktop/"$CODEC_FILE_NAME"_converts/pin-complex.txt;
-			echo "$VENDOR" >> /Users/MrDee/Desktop/"$CODEC_FILE_NAME"_converts/pin-complex.txt;
-			echo "Dec $VNDR_DEC" >> /Users/MrDee/Desktop/"$CODEC_FILE_NAME"_converts/pin-complex.txt;
-			echo "$PIN_COMPLEX" >> /Users/MrDee/Desktop/"$CODEC_FILE_NAME"_converts/pin-complex.txt;
+			echo "$ADDRESS" > "$FOLDER_PATH/$CODEC_FILE_NAME"_converts/pin-complex.txt;
+			echo "$CODEC" >> "$FOLDER_PATH/$CODEC_FILE_NAME"_converts/pin-complex.txt;
+			echo "$VENDOR" >> "$FOLDER_PATH/$CODEC_FILE_NAME"_converts/pin-complex.txt;
+			echo "Dec $VNDR_DEC" >> "$FOLDER_PATH/$CODEC_FILE_NAME"_converts/pin-complex.txt;
+			echo "$PIN_COMPLEX" >> "$FOLDER_PATH/$CODEC_FILE_NAME"_converts/pin-complex.txt;
 			
-			echo "Данные распологаются на рабочем столе, в каталоге: "$CODEC_FILE_NAME"_converts";
+			echo "Данные распологаются на в каталоге: "$FOLDER_PATH/$CODEC_FILE_NAME"_converts";
 			
 			echo "$ADDRESS"
 			echo "$VENDOR"
